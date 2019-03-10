@@ -1,5 +1,6 @@
 package com.example.sokoban
 
+import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.gms.ads.MobileAds
@@ -7,7 +8,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import android.webkit.WebView
 import android.view.MotionEvent
-import android.view.View.OnTouchListener
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -17,6 +17,7 @@ class FullscreenActivity : AppCompatActivity() {
     private lateinit var adViewNorth : AdView
     private lateinit var adViewSouth : AdView
 
+    @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,8 +36,8 @@ class FullscreenActivity : AppCompatActivity() {
         val webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
         webView.loadUrl("file:///android_asset/index.html")
-        webView.setOnTouchListener { view, motionEvent ->
-            (motionEvent.getAction() == MotionEvent.ACTION_MOVE)
+        webView.setOnTouchListener { _, motionEvent ->
+            motionEvent.action == MotionEvent.ACTION_MOVE
         }
     }
 }
