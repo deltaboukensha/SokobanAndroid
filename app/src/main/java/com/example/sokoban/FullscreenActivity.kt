@@ -6,6 +6,8 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import android.webkit.WebView
+import android.view.MotionEvent
+import android.view.View.OnTouchListener
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -33,5 +35,8 @@ class FullscreenActivity : AppCompatActivity() {
         val webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
         webView.loadUrl("file:///android_asset/index.html")
+        webView.setOnTouchListener { view, motionEvent ->
+            (motionEvent.getAction() == MotionEvent.ACTION_MOVE)
+        }
     }
 }
