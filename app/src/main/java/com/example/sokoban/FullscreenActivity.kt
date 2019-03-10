@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
+import android.webkit.WebView
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -28,5 +29,9 @@ class FullscreenActivity : AppCompatActivity() {
         adViewNorth.loadAd(adRequest)
         adViewSouth = findViewById(R.id.adViewSouth)
         adViewSouth.loadAd(adRequest)
+
+        val webView = findViewById<WebView>(R.id.webView)
+        webView.settings.javaScriptEnabled = true
+        webView.loadUrl("file:///android_asset/index.html")
     }
 }

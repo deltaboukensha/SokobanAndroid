@@ -15,14 +15,10 @@
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-6365666499020317/4978502271">
     </com.google.android.gms.ads.AdView>
-    <TextView android:id="@+id/fullscreen_content"
-              android:layout_width="match_parent"
-              android:keepScreenOn="true"
-              android:textColor="#33b5e5"
-              android:textStyle="bold"
-              android:textSize="50sp"
-              android:gravity="center"
-              android:text="@string/dummy_content" android:layout_weight="1" android:layout_height="0dp"/>
+    <WebView android:id="@+id/webView"
+             android:layout_weight="1"
+             android:layout_height="0dp"
+             android:layout_width="match_parent"/>
     <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adViewSouth"
