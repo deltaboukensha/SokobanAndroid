@@ -188,11 +188,39 @@ const moveDown = (gameState) => {
 	taskList.push(clone);
 };
 
+const cellSize = 100;
+
+const drawState = () => {
+	currentState.walls.forEach(i => {
+		console.log(i);
+		g.fillStyle = 'grey';
+		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+	});
+	currentState.goals.forEach(i => {
+		console.log(i);
+		g.fillStyle = 'green';
+		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+	});
+	currentState.boxes.forEach(i => {
+		console.log(i);
+		g.fillStyle = 'white';
+		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+	});
+	{
+		const p = currentState.player;
+		g.fillStyle = 'gold';
+		g.fillRect(p.x * cellSize, p.y * cellSize, cellSize, cellSize);
+	}
+};
 
 const renderFrame = () => {
 	console.log("renderFrame");
-	g.fillStyle = 'green';
+	canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth;
+	g.fillStyle = 'black';
 	g.fillRect(0, 0, canvas.width, canvas.height);
+	console.log(canvas.width, canvas.height);
+	drawState();
 }
 
 console.log(window.gameMaps);
