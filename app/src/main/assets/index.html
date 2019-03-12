@@ -1,6 +1,8 @@
 <html>
 
 <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 	<style>
 		* {
 			box-sizing: border-box;
@@ -12,11 +14,46 @@
 			width: 100vw;
 			height: 100vh;
 		}
+
+		#gameControls {
+			top: 0px;
+			left: 0px;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+			background-color: rgba(0.5, 0.5, 0.5, 0.5);
+		}
+
+		#grid {
+			display: grid;
+			width: 100%;
+			height: 100%;
+			grid-template-columns: 1fr 1fr 1fr;
+			grid-template-rows: 1fr 1fr 1fr;
+			font-size: 20vw;
+			color: white;
+			align-items: center;
+			text-align: center;
+		}
 	</style>
 </head>
 
 <body>
 	<canvas id="gameCanvas"></canvas>
+	<div id="gameControls">
+		<div id="grid">
+			<span id="buttonMenu">☰</span>
+			<span id="buttonUp">↑</span>
+			<span id="buttonReset">↺</span>
+			<span id="buttonLeft">←</span>
+			<span id="buttonMiddle">🎮</span>
+			<span id="buttonRight">→</span>
+			<span id="buttonBackward">↶</span>
+			<span id="buttonDown">↓</span>
+			<span id="buttonForward">↷</span>
+		</div>
+		<span>Game Controls</span>
+	</div>
 	<script src="map11.js"></script>
 	<script src="index.js"></script>
 </body>

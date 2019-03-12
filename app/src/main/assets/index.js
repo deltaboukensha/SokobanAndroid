@@ -1,5 +1,6 @@
 console.log("index.js");
 const canvas = document.getElementById("gameCanvas");
+const gameControls = document.getElementById("gameControls");
 const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
 
@@ -188,21 +189,18 @@ const moveDown = (gameState) => {
 	taskList.push(clone);
 };
 
-const cellSize = 100;
+const cellSize = 40;
 
 const drawState = () => {
 	currentState.walls.forEach(i => {
-		console.log(i);
 		g.fillStyle = 'grey';
 		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	currentState.goals.forEach(i => {
-		console.log(i);
 		g.fillStyle = 'green';
 		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	currentState.boxes.forEach(i => {
-		console.log(i);
 		g.fillStyle = 'white';
 		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
@@ -219,12 +217,52 @@ const renderFrame = () => {
 	canvas.width = window.innerWidth;
 	g.fillStyle = 'black';
 	g.fillRect(0, 0, canvas.width, canvas.height);
-	console.log(canvas.width, canvas.height);
 	drawState();
 }
 
-console.log(window.gameMaps);
+const showControls = () => {
+	gameControls.style.opacity = "1.0";
+};
+
+const hideControls = () => {
+	gameControls.style.opacity = "0.0";
+};
+
+hideControls();
 currentState = readState(window.gameMaps.map11);
-console.log(currentState);
 renderFrame();
-window.addEventListener("resize", renderFrame);
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener("resize", renderFrame);
+document.addEventListener("touchstart", () => {
+	showControls();
+});
+document.addEventListener("touchend", () => {
+	hideControls();
+});
+document.getElementById("buttonLeft").addEventListener("touchend", () => {
+	console.log("buttonLeft");
+});
+document.getElementById("buttonRight").addEventListener("touchend", () => {
+	console.log("buttonRight");
+});
+document.getElementById("buttonUp").addEventListener("touchend", () => {
+	console.log("buttonUp");
+});
+document.getElementById("buttonDown").addEventListener("touchend", () => {
+	console.log("buttonDown");
+});
+document.getElementById("buttonMenu").addEventListener("touchend", () => {
+	console.log("buttonMenu");
+});
+document.getElementById("buttonReset").addEventListener("touchend", () => {
+	console.log("buttonReset");
+});
+document.getElementById("buttonForward").addEventListener("touchend", () => {
+	console.log("buttonForward");
+});
+document.getElementById("buttonMiddle").addEventListener("touchend", () => {
+	console.log("buttonMiddle");
+});
+document.getElementById("buttonBackward").addEventListener("click", () => {
+	console.log("buttonBackward");
+});
