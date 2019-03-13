@@ -3,6 +3,9 @@ const canvas = document.getElementById("gameCanvas");
 const gameControls = document.getElementById("gameControls");
 const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
+let resetState;
+let historyState = [];
+let futureState = [];
 
 const readState = (dataString) => {
 	const gameState = {
@@ -126,7 +129,7 @@ const moveLeft = (gameState) => {
 
 	clone.player.x = x - 1;
 	clone.history.push('L');
-	taskList.push(clone);
+	return clone;
 };
 
 const moveRight = (gameState) => {
@@ -146,7 +149,7 @@ const moveRight = (gameState) => {
 
 	clone.player.x = x + 1;
 	clone.history.push('R');
-	taskList.push(clone);
+	return clone;
 };
 
 const moveUp = (gameState) => {
@@ -166,7 +169,7 @@ const moveUp = (gameState) => {
 
 	clone.player.y = y - 1;
 	clone.history.push('U');
-	taskList.push(clone);
+	return clone;
 };
 
 const moveDown = (gameState) => {
@@ -186,7 +189,7 @@ const moveDown = (gameState) => {
 
 	clone.player.y = y + 1;
 	clone.history.push('D');
-	taskList.push(clone);
+	return clone;
 };
 
 const cellSize = 40;
@@ -225,44 +228,74 @@ const showControls = () => {
 };
 
 const hideControls = () => {
-	gameControls.style.opacity = "0.0";
+	gameControls.style.opacity = "0.1";
 };
 
+const pushState = (nextState) => {
+	if (nextState) {
+		historyState.push(currentState);
+		currentState = nextState;
+	}
+	renderFrame();
+};
+
+resetState = readState(window.gameMaps.map11);
+currentState = resetState;
+historyState.push(currentState);
 hideControls();
-currentState = readState(window.gameMaps.map11);
 renderFrame();
 document.addEventListener('contextmenu', event => event.preventDefault());
 document.addEventListener("resize", renderFrame);
-document.addEventListener("touchstart", () => {
-	showControls();
-});
-document.addEventListener("touchend", () => {
-	hideControls();
-});
+
 document.getElementById("buttonLeft").addEventListener("touchend", () => {
 	console.log("buttonLeft");
+	pushState(moveLeft(currentState));
+	futureState = [];
 });
 document.getElementById("buttonRight").addEventListener("touchend", () => {
 	console.log("buttonRight");
+	pushState(moveRight(currentState));
+	futureState = [];
 });
 document.getElementById("buttonUp").addEventListener("touchend", () => {
 	console.log("buttonUp");
+	pushState(moveUp(currentState));
+	futureState = [];
 });
 document.getElementById("buttonDown").addEventListener("touchend", () => {
 	console.log("buttonDown");
+	pushState(moveDown(currentState));
+	futureState = [];
 });
-document.getElementById("buttonMenu").addEventListener("touchend", () => {
-	console.log("buttonMenu");
+
+document.getElementById("buttonMiddle").addEventListener("touchstart", () => {
+	showControls();
 });
-document.getElementById("buttonReset").addEventListener("touchend", () => {
-	console.log("buttonReset");
+document.getElementById("buttonMiddle").addEventListener("touchend", () => {
+	hideControls();
+});
+
+document.getElementById("buttonBackward").addEventListener("touchend", () => {
+	console.log("buttonBackward");
+	if (historyState.length > 0) {
+		futureState.push(currentState);
+		const pastState = historyState.pop();
+		currentState = pastState;
+		renderFrame();
+	}
 });
 document.getElementById("buttonForward").addEventListener("touchend", () => {
 	console.log("buttonForward");
+	if (futureState.length > 0) {
+		pushState(futureState.pop());
+	}
 });
-document.getElementById("buttonMiddle").addEventListener("touchend", () => {
-	console.log("buttonMiddle");
+
+document.getElementById("buttonReset").addEventListener("touchend", () => {
+	console.log("buttonReset");
+	currentState = resetState;
+	renderFrame();
 });
-document.getElementById("buttonBackward").addEventListener("click", () => {
-	console.log("buttonBackward");
+document.getElementById("buttonMenu").addEventListener("touchend", () => {
+	console.log("buttonMenu");
 });
