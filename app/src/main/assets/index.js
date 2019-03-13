@@ -237,6 +237,10 @@ const pushState = (nextState) => {
 		currentState = nextState;
 	}
 	renderFrame();
+
+	if (isWin(currentState)) {
+		document.getElementById("victoryScreen").style.visibility = "visible";
+	}
 };
 
 resetState = readState(window.gameMaps.map11);

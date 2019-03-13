@@ -23,6 +23,7 @@
 			height: 100vh;
 			position: fixed;
 			background-color: rgba(0.5, 0.5, 0.5, 0.5);
+			opacity: 0;
 		}
 
 		#grid {
@@ -35,6 +36,21 @@
 			color: white;
 			align-items: center;
 			text-align: center;
+		}
+
+		#victoryScreen {
+			top: 0px;
+			left: 0px;
+			width: 100vw;
+			height: 100vh;
+			position: fixed;
+			background-color: rgba(0.5, 0.5, 0.5, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 20vw;
+			visibility: hidden;
 		}
 	</style>
 </head>
@@ -53,7 +69,9 @@
 			<span id="buttonDown">↓</span>
 			<span id="buttonForward">↷</span>
 		</div>
-		<span>Game Controls</span>
+	</div>
+	<div id="victoryScreen">
+		<span>Victory ✌</span>
 	</div>
 	<script src="map11.js"></script>
 	<script src="index.js"></script>
