@@ -243,7 +243,7 @@ const pushState = (nextState) => {
 	}
 };
 
-resetState = readState(window.gameMaps.map11);
+resetState = readState(window.gameMaps.map1);
 currentState = resetState;
 historyState.push(currentState);
 hideControls();
