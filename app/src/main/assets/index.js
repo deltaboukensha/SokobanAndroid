@@ -1,6 +1,8 @@
 console.log("index.js");
 const canvas = document.getElementById("gameCanvas");
 const gameControls = document.getElementById("gameControls");
+const menuScreen = document.getElementById("menuScreen");
+const victoryScreen = document.getElementById("victoryScreen");
 const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
 let resetState;
@@ -221,7 +223,7 @@ const renderFrame = () => {
 	g.fillStyle = 'black';
 	g.fillRect(0, 0, canvas.width, canvas.height);
 	drawState();
-}
+};
 
 const showControls = () => {
 	gameControls.style.opacity = "1.0";
@@ -239,9 +241,14 @@ const pushState = (nextState) => {
 	renderFrame();
 
 	if (isWin(currentState)) {
-		document.getElementById("victoryScreen").style.visibility = "visible";
+		victoryScreen.style.visibility = "visible";
 	}
 };
+
+Object.keys(window.gameMaps).forEach(i => {
+	[];
+	menuScreen.insertAdjacentHTML('beforeend', "<div>" + i + "</div>");
+});
 
 resetState = readState(window.gameMaps.map1);
 currentState = resetState;
@@ -302,4 +309,10 @@ document.getElementById("buttonReset").addEventListener("touchend", () => {
 });
 document.getElementById("buttonMenu").addEventListener("touchend", () => {
 	console.log("buttonMenu");
+});
+
+document.getElementById("victoryScreen").addEventListener("touchend", () => {
+	console.log("victoryScreen");
+	victoryScreen.style.visibility = "hidden";
+	menuScreen.style.visibility = "visible";
 });
