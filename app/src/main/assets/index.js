@@ -2,6 +2,7 @@ console.log("index.js");
 const canvas = document.getElementById("gameCanvas");
 const gameControls = document.getElementById("gameControls");
 const menuScreen = document.getElementById("menuScreen");
+const menuReturn = document.getElementById("menuReturn");
 const victoryScreen = document.getElementById("victoryScreen");
 const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
@@ -249,22 +250,38 @@ const pushState = (nextState) => {
 	}
 };
 
-const loadMap = (mapKey) => {
-	resetState = readState(window.gameMaps[mapKey]);
+const loadMap = (map) => {
+	resetState = readState(map.data);
 	currentState = resetState;
 	historyState = [];
 	historyState.push(currentState);
 };
 
-Object.keys(window.gameMaps).forEach(i => {
+const showMenu = () => {
+	menuScreen.style.visibility = "visible";
+};
+
+const hideMenu = () => {
+	if (!currentState) {
+		return;
+	}
+	menuScreen.style.visibility = "hidden";
+};
+
+menuReturn.addEventListener("click", () => {
+	hideMenu();
+});
+
+Object.keys(window.gameMaps).forEach(mapKey => {
+	const map = window.gameMaps[mapKey];
 	const element = document.createElement("div");
 	element.className = 'item';
 	element.addEventListener("click", () => {
-		loadMap(i);
-		menuScreen.style.visibility = "hidden";
+		loadMap(map);
+		hideMenu();
 		renderFrame();
 	});
-	const text = document.createTextNode(i)
+	const text = document.createTextNode(map.name)
 	element.appendChild(text);
 	menuScreen.appendChild(element);
 });
@@ -325,6 +342,7 @@ document.getElementById("buttonReset").addEventListener("touchend", () => {
 });
 document.getElementById("buttonMenu").addEventListener("touchend", () => {
 	console.log("buttonMenu");
+	showMenu();
 });
 
 document.getElementById("victoryScreen").addEventListener("touchend", () => {
