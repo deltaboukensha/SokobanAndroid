@@ -197,6 +197,10 @@ const moveDown = (gameState) => {
 const cellSize = 40;
 
 const drawState = () => {
+	if (!currentState) {
+		return;
+	}
+
 	currentState.walls.forEach(i => {
 		g.fillStyle = 'grey';
 		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
@@ -245,14 +249,26 @@ const pushState = (nextState) => {
 	}
 };
 
+const loadMap = (mapKey) => {
+	resetState = readState(window.gameMaps[mapKey]);
+	currentState = resetState;
+	historyState = [];
+	historyState.push(currentState);
+};
+
 Object.keys(window.gameMaps).forEach(i => {
-	[];
-	menuScreen.insertAdjacentHTML('beforeend', "<div>" + i + "</div>");
+	const element = document.createElement("div");
+	element.className = 'item';
+	element.addEventListener("click", () => {
+		loadMap(i);
+		menuScreen.style.visibility = "hidden";
+		renderFrame();
+	});
+	const text = document.createTextNode(i)
+	element.appendChild(text);
+	menuScreen.appendChild(element);
 });
 
-resetState = readState(window.gameMaps.map1);
-currentState = resetState;
-historyState.push(currentState);
 hideControls();
 renderFrame();
 document.addEventListener('contextmenu', event => event.preventDefault());
