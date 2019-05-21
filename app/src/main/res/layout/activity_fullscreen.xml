@@ -9,7 +9,7 @@
         tools:context=".FullscreenActivity">
     <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adViewNorth"
+            android:id="@+id/adBanner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
@@ -19,12 +19,4 @@
              android:layout_weight="1"
              android:layout_height="0dp"
              android:layout_width="match_parent"/>
-    <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adViewSouth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6365666499020317/1815607722">
-    </com.google.android.gms.ads.AdView>
 </LinearLayout>
