@@ -14,8 +14,7 @@ import android.view.MotionEvent
  * status bar and navigation/system bar) with user interaction.
  */
 class FullscreenActivity : AppCompatActivity() {
-    private lateinit var adViewNorth : AdView
-    private lateinit var adViewSouth : AdView
+    private lateinit var adBanner : AdView
 
     @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +27,8 @@ class FullscreenActivity : AppCompatActivity() {
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713")
 
         val adRequest = AdRequest.Builder().build()
-        adViewNorth = findViewById(R.id.adViewNorth)
-        adViewNorth.loadAd(adRequest)
-        adViewSouth = findViewById(R.id.adViewSouth)
-        adViewSouth.loadAd(adRequest)
+        adBanner = findViewById(R.id.adBanner)
+        adBanner.loadAd(adRequest)
 
         val webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
