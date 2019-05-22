@@ -48,7 +48,7 @@ class FullscreenActivity : AppCompatActivity() {
 
         webView.webViewClient = MyWebViewClient()
 
-        webView.loadUrl("http://localhost:${serverSocket.localPort}/index.html")
+        webView.loadUrl("http://localhost/index.html")
         webView.setOnTouchListener { _, motionEvent ->
             motionEvent.action == MotionEvent.ACTION_MOVE
         }
