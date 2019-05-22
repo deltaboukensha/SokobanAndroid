@@ -1,13 +1,19 @@
 package com.example.sokoban
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.gms.ads.MobileAds
+import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
-import android.webkit.WebView
-import android.view.MotionEvent
+import com.google.android.gms.ads.MobileAds
+import java.io.ByteArrayInputStream
+import java.net.ServerSocket
+import java.nio.charset.Charset
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -15,9 +21,11 @@ import android.view.MotionEvent
  */
 class FullscreenActivity : AppCompatActivity() {
     private lateinit var adBanner : AdView
+    private lateinit var serverSocket: ServerSocket
 
     @SuppressLint("ClickableViewAccessibility", "SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
+        System.out.println("onCreate")
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_fullscreen)
@@ -32,9 +40,26 @@ class FullscreenActivity : AppCompatActivity() {
 
         val webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
-        webView.loadUrl("file:///android_asset/index.html")
+
+        val apply = webView.settings.apply {
+            allowFileAccess = true
+            allowContentAccess = true
+        }
+
+        webView.webViewClient = MyWebViewClient()
+
+        webView.loadUrl("http://localhost:${serverSocket.localPort}/index.html")
         webView.setOnTouchListener { _, motionEvent ->
             motionEvent.action == MotionEvent.ACTION_MOVE
         }
+    }
+}
+
+class MyWebViewClient : WebViewClient(){
+    override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse {
+        System.out.println("REQUEST")
+        System.out.println(request?.url)
+        var dataStream = ByteArrayInputStream("Hello World".toByteArray(Charset.defaultCharset()))
+        return WebResourceResponse("text/plain", "UTF-8", dataStream)
     }
 }
