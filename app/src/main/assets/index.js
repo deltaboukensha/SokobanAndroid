@@ -12,6 +12,8 @@ const cellSize = 32;
 const playerSprite = new Image();
 playerSprite.src = "playerSprite.png";
 let playerDirection;
+const playerDownImage = new Image();
+playerDownImage.src = "playerDown32x32.png";
 const crateImage = new Image();
 crateImage.src = "crate32x32.png";
 const goalImage = new Image();
@@ -251,7 +253,13 @@ const drawState = () => {
 		const dy = p.y * cellSize;
 		const dw = sw * scale;
 		const dh = sh * scale;
-		g.drawImage(playerSprite, sx, sy, sw, sh, dx, dy, dw, dh);
+
+		if (playerDirection == "down") {
+			g.drawImage(playerDownImage, 0, 0, cellSize, cellSize, p.x * cellSize, p.y * cellSize, cellSize, cellSize);
+		}
+		else {
+			g.drawImage(playerSprite, sx, sy, sw, sh, dx, dy, dw, dh);
+		}
 	}
 };
 
