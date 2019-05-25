@@ -11,9 +11,8 @@ import android.webkit.WebViewClient
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import java.io.ByteArrayInputStream
+import java.io.InputStreamReader
 import java.net.ServerSocket
-import java.nio.charset.Charset
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -41,25 +40,33 @@ class FullscreenActivity : AppCompatActivity() {
         val webView = findViewById<WebView>(R.id.webView)
         webView.settings.javaScriptEnabled = true
 
-        val apply = webView.settings.apply {
+        webView.settings.apply {
             allowFileAccess = true
             allowContentAccess = true
         }
 
         webView.webViewClient = MyWebViewClient()
 
-        webView.loadUrl("http://localhost/index.html")
+        webView.loadUrl("https://assets/index.html")
         webView.setOnTouchListener { _, motionEvent ->
             motionEvent.action == MotionEvent.ACTION_MOVE
         }
     }
-}
 
-class MyWebViewClient : WebViewClient(){
-    override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse {
-        System.out.println("REQUEST")
-        System.out.println(request?.url)
-        var dataStream = ByteArrayInputStream("Hello World".toByteArray(Charset.defaultCharset()))
-        return WebResourceResponse("text/plain", "UTF-8", dataStream)
+    inner class MyWebViewClient : WebViewClient(){
+        override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse {
+            var filePath = request.url.path.replaceFirst("/", "")
+            var dataStream = assets.open(filePath)
+
+            var mimeType = "";
+            if(filePath.endsWith(".js")){
+                mimeType = "text/html"
+            }
+            else if(filePath.endsWith(".js")){
+                mimeType = "application/javascript"
+            }
+
+            return WebResourceResponse(mimeType,"UTF-8", dataStream)
+        }
     }
 }
