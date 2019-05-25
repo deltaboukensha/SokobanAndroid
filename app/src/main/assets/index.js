@@ -25,6 +25,17 @@ goalImage.src = "32x32/goal.png";
 const wallImage = new Image();
 wallImage.src = "32x32/wall.png";
 
+const maps = [
+	{
+		name: "1",
+		file: "map/1.txt"
+	},
+	{
+		name: "11",
+		file: "map/11.txt",
+	}
+];
+
 const loadImageAsync = (source) => {
 	return new Promise((resolve) => {
 		const image = new Image();
@@ -305,9 +316,10 @@ const changeTime = () => {
 	}
 }
 
-const loadMap = (map) => {
+const loadMap = async (map) => {
+	const response = await fetch("/" + map.file)
 	const timeItem = {
-		state: readState(map.data),
+		state: readState(await response.text()),
 		playerDirection: "down",
 	};
 	currentState = timeItem.state;
@@ -331,12 +343,11 @@ menuReturn.addEventListener("touchend", () => {
 	hideMenu();
 });
 
-Object.keys(window.gameMaps).forEach(mapKey => {
-	const map = window.gameMaps[mapKey];
+maps.forEach(map => {
 	const element = document.createElement("div");
 	element.className = 'item';
-	element.addEventListener("touchend", () => {
-		loadMap(map);
+	element.addEventListener("touchend", async () => {
+		await loadMap(map);
 		hideMenu();
 		showControls();
 		renderFrame();
