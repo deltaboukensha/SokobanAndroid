@@ -347,83 +347,87 @@ Object.keys(window.gameMaps).forEach(mapKey => {
 	menuScreen.appendChild(element);
 });
 
+const attachEvents = async () => {
+	document.addEventListener('contextmenu', event => event.preventDefault());
+	document.addEventListener("resize", renderFrame);
+
+	document.getElementById("buttonLeft").addEventListener("touchend", () => {
+		console.log("buttonLeft");
+		pushTime({
+			state: moveLeft(currentState),
+			playerDirection: "left",
+		});
+	});
+	document.getElementById("buttonRight").addEventListener("touchend", () => {
+		console.log("buttonRight");
+		pushTime({
+			state: moveRight(currentState),
+			playerDirection: "right",
+		});
+	});
+	document.getElementById("buttonUp").addEventListener("touchend", () => {
+		console.log("buttonUp");
+		pushTime({
+			state: moveUp(currentState),
+			playerDirection: "up",
+		});
+	});
+	document.getElementById("buttonDown").addEventListener("touchend", () => {
+		console.log("buttonDown");
+		pushTime({
+			state: moveDown(currentState),
+			playerDirection: "down",
+		});
+	});
+
+	document.getElementById("buttonMiddle").addEventListener("touchstart", () => {
+		showControls();
+	});
+	document.getElementById("buttonMiddle").addEventListener("touchend", () => {
+		hideControls();
+	});
+
+	document.getElementById("buttonBackward").addEventListener("touchend", () => {
+		console.log("buttonBackward");
+		if (timelineIndex == 0) {
+			return;
+		}
+
+		timelineIndex -= 1;
+		changeTime();
+	});
+	document.getElementById("buttonForward").addEventListener("touchend", () => {
+		console.log("buttonForward");
+		if (timelineIndex + 1 == timeline.length) {
+			return;
+		}
+
+		timelineIndex += 1;
+		changeTime();
+	});
+
+	document.getElementById("buttonReset").addEventListener("touchend", () => {
+		console.log("buttonReset");
+		currentState = timeline[0];
+		renderFrame();
+	});
+	document.getElementById("buttonMenu").addEventListener("touchend", () => {
+		console.log("buttonMenu");
+		showMenu();
+	});
+
+	document.getElementById("victoryScreen").addEventListener("touchend", () => {
+		console.log("victoryScreen");
+		victoryScreen.style.visibility = "hidden";
+		menuScreen.style.visibility = "visible";
+	});
+
+};
+
 const runAsync = async () => {
 	hideControls();
 	renderFrame();
+	await attachEvents();
 };
 
 runAsync();
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.addEventListener("resize", renderFrame);
-
-document.getElementById("buttonLeft").addEventListener("touchend", () => {
-	console.log("buttonLeft");
-	pushTime({
-		state: moveLeft(currentState),
-		playerDirection: "left",
-	});
-});
-document.getElementById("buttonRight").addEventListener("touchend", () => {
-	console.log("buttonRight");
-	pushTime({
-		state: moveRight(currentState),
-		playerDirection: "right",
-	});
-});
-document.getElementById("buttonUp").addEventListener("touchend", () => {
-	console.log("buttonUp");
-	pushTime({
-		state: moveUp(currentState),
-		playerDirection: "up",
-	});
-});
-document.getElementById("buttonDown").addEventListener("touchend", () => {
-	console.log("buttonDown");
-	pushTime({
-		state: moveDown(currentState),
-		playerDirection: "down",
-	});
-});
-
-document.getElementById("buttonMiddle").addEventListener("touchstart", () => {
-	showControls();
-	console.log({ timelineIndex, playerDirection, currentState });
-});
-document.getElementById("buttonMiddle").addEventListener("touchend", () => {
-	hideControls();
-});
-
-document.getElementById("buttonBackward").addEventListener("touchend", () => {
-	console.log("buttonBackward");
-	if (timelineIndex == 0) {
-		return;
-	}
-
-	timelineIndex -= 1;
-	changeTime();
-});
-document.getElementById("buttonForward").addEventListener("touchend", () => {
-	console.log("buttonForward");
-	if (timelineIndex + 1 == timeline.length) {
-		return;
-	}
-
-	timelineIndex += 1;
-	changeTime();
-});
-
-document.getElementById("buttonReset").addEventListener("touchend", () => {
-	console.log("buttonReset");
-	currentState = timeline[0];
-	renderFrame();
-});
-document.getElementById("buttonMenu").addEventListener("touchend", () => {
-	console.log("buttonMenu");
-	showMenu();
-});
-
-document.getElementById("victoryScreen").addEventListener("touchend", () => {
-	console.log("victoryScreen");
-	victoryScreen.style.visibility = "hidden";
-	menuScreen.style.visibility = "visible";
-});
