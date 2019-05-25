@@ -6,13 +6,11 @@ const menuReturn = document.getElementById("menuReturn");
 const victoryScreen = document.getElementById("victoryScreen");
 const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
-let resetState;
-let historyState = [];
-let futureState = [];
+let timeline = [];
+let timelineIndex;
 
 const readState = (dataString) => {
 	const gameState = {
-		history: [],
 		player: {},
 		walls: [],
 		boxes: [],
@@ -131,7 +129,6 @@ const moveLeft = (gameState) => {
 	}
 
 	clone.player.x = x - 1;
-	clone.history.push('L');
 	return clone;
 };
 
@@ -151,7 +148,6 @@ const moveRight = (gameState) => {
 	}
 
 	clone.player.x = x + 1;
-	clone.history.push('R');
 	return clone;
 };
 
@@ -171,7 +167,6 @@ const moveUp = (gameState) => {
 	}
 
 	clone.player.y = y - 1;
-	clone.history.push('U');
 	return clone;
 };
 
@@ -191,7 +186,6 @@ const moveDown = (gameState) => {
 	}
 
 	clone.player.y = y + 1;
-	clone.history.push('D');
 	return clone;
 };
 
@@ -239,10 +233,12 @@ const hideControls = () => {
 };
 
 const pushState = (nextState) => {
-	if (nextState) {
-		historyState.push(currentState);
-		currentState = nextState;
-	}
+	console.log(timeline.length);
+	timeline = timeline.slice(0, timelineIndex + 1);
+	console.log(timeline.length);
+	timeline.push(nextState);
+	timelineIndex += 1;
+	currentState = timeline[timelineIndex];
 	renderFrame();
 
 	if (isWin(currentState)) {
@@ -251,10 +247,9 @@ const pushState = (nextState) => {
 };
 
 const loadMap = (map) => {
-	resetState = readState(map.data);
-	currentState = resetState;
-	historyState = [];
-	historyState.push(currentState);
+	currentState = readState(map.data);
+	timeline = [currentState];
+	timelineIndex = 0;
 };
 
 const showMenu = () => {
@@ -294,22 +289,18 @@ document.addEventListener("resize", renderFrame);
 document.getElementById("buttonLeft").addEventListener("touchend", () => {
 	console.log("buttonLeft");
 	pushState(moveLeft(currentState));
-	futureState = [];
 });
 document.getElementById("buttonRight").addEventListener("touchend", () => {
 	console.log("buttonRight");
 	pushState(moveRight(currentState));
-	futureState = [];
 });
 document.getElementById("buttonUp").addEventListener("touchend", () => {
 	console.log("buttonUp");
 	pushState(moveUp(currentState));
-	futureState = [];
 });
 document.getElementById("buttonDown").addEventListener("touchend", () => {
 	console.log("buttonDown");
 	pushState(moveDown(currentState));
-	futureState = [];
 });
 
 document.getElementById("buttonMiddle").addEventListener("touchstart", () => {
@@ -321,23 +312,28 @@ document.getElementById("buttonMiddle").addEventListener("touchend", () => {
 
 document.getElementById("buttonBackward").addEventListener("touchend", () => {
 	console.log("buttonBackward");
-	if (historyState.length > 0) {
-		futureState.push(currentState);
-		const pastState = historyState.pop();
-		currentState = pastState;
-		renderFrame();
+	if (timelineIndex == 0) {
+		return;
 	}
+
+	timelineIndex -= 1;
+	currentState = timeline[timelineIndex];
+	renderFrame();
 });
 document.getElementById("buttonForward").addEventListener("touchend", () => {
 	console.log("buttonForward");
-	if (futureState.length > 0) {
-		pushState(futureState.pop());
+	if (timelineIndex + 1 == timeline.length) {
+		return;
 	}
+
+	timelineIndex += 1;
+	currentState = timeline[timelineIndex];
+	renderFrame();
 });
 
 document.getElementById("buttonReset").addEventListener("touchend", () => {
 	console.log("buttonReset");
-	currentState = resetState;
+	currentState = timeline[0];
 	renderFrame();
 });
 document.getElementById("buttonMenu").addEventListener("touchend", () => {
