@@ -14,6 +14,8 @@ playerSprite.src = "playerSprite.png";
 let playerDirection = 'down';
 const crateImage = new Image();
 crateImage.src = "crate32x32.png";
+const goalImage = new Image();
+goalImage.src = "goal32x32.png";
 
 const readState = (dataString) => {
 	const gameState = {
@@ -205,8 +207,9 @@ const drawState = () => {
 		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	currentState.goals.forEach(i => {
-		g.fillStyle = 'green';
-		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		// g.fillStyle = 'green';
+		// g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		g.drawImage(goalImage, 0, 0, cellSize, cellSize, i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	currentState.boxes.forEach(i => {
 		// g.fillStyle = 'white';
