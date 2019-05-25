@@ -8,10 +8,12 @@ const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
 let timeline = [];
 let timelineIndex;
-const cellSize = 40;
+const cellSize = 32;
 const playerSprite = new Image();
 playerSprite.src = "playerSprite.png";
 let playerDirection = 'down';
+const crateImage = new Image();
+crateImage.src = "crate32x32.png";
 
 const readState = (dataString) => {
 	const gameState = {
@@ -207,8 +209,9 @@ const drawState = () => {
 		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	currentState.boxes.forEach(i => {
-		g.fillStyle = 'white';
-		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		// g.fillStyle = 'white';
+		// g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		g.drawImage(crateImage, 0, 0, cellSize, cellSize, i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	{
 		const p = currentState.player;
