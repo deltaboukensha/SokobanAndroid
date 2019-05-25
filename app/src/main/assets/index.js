@@ -232,6 +232,10 @@ const hideControls = () => {
 };
 
 const pushState = (nextState) => {
+	if (!nextState) {
+		return;
+	}
+
 	timeline = timeline.slice(0, timelineIndex + 1);
 	timeline.push(nextState);
 	timelineIndex += 1;
@@ -251,6 +255,7 @@ const loadMap = (map) => {
 
 const showMenu = () => {
 	menuScreen.style.visibility = "visible";
+	console.log({ timelineIndex });
 };
 
 const hideMenu = () => {
@@ -271,6 +276,7 @@ Object.keys(window.gameMaps).forEach(mapKey => {
 	element.addEventListener("click", () => {
 		loadMap(map);
 		hideMenu();
+		showControls();
 		renderFrame();
 	});
 	const text = document.createTextNode(map.name)
@@ -278,6 +284,7 @@ Object.keys(window.gameMaps).forEach(mapKey => {
 	menuScreen.appendChild(element);
 });
 
+hideControls();
 renderFrame();
 document.addEventListener('contextmenu', event => event.preventDefault());
 document.addEventListener("resize", renderFrame);
