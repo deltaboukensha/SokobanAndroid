@@ -9,8 +9,6 @@ let currentState;
 let timeline = [];
 let timelineIndex;
 const cellSize = 32;
-const playerSprite = new Image();
-playerSprite.src = "playerSprite.png";
 let playerDirection;
 const playerDownImage = new Image();
 playerDownImage.src = "32x32/playerDown.png";
@@ -26,6 +24,16 @@ const goalImage = new Image();
 goalImage.src = "32x32/goal.png";
 const wallImage = new Image();
 wallImage.src = "32x32/wall.png";
+
+const loadImageAsync = (source) => {
+	return new Promise((resolve) => {
+		const image = new Image();
+		image.src = source;
+		image.addEventListener("load", () => {
+			resolve(image);
+		});
+	});
+};
 
 const readState = (dataString) => {
 	const gameState = {
@@ -232,34 +240,6 @@ const drawState = () => {
 		// g.fillStyle = 'gold';
 		// g.fillRect(p.x * cellSize, p.y * cellSize, cellSize, cellSize);
 
-		let sx = 0;
-		let sy = 0;
-		const sw = 120;
-		const sh = 130;
-
-		if (playerDirection == "down") {
-			sx = 0;
-			sy = sh * 0;
-		}
-		else if (playerDirection == "left") {
-			sx = 0;
-			sy = sh * 1;
-		}
-		else if (playerDirection == "up") {
-			sx = 0;
-			sy = sh * 2;
-		}
-		else if (playerDirection == "right") {
-			sx = 0;
-			sy = sh * 3;
-		}
-
-		const scale = 0.25;
-		const dx = p.x * cellSize + sw * scale / 4;
-		const dy = p.y * cellSize;
-		const dw = sw * scale;
-		const dh = sh * scale;
-
 		if (playerDirection == "down") {
 			g.drawImage(playerDownImage, 0, 0, cellSize, cellSize, p.x * cellSize, p.y * cellSize, cellSize, cellSize);
 		}
@@ -320,6 +300,7 @@ const loadMap = (map) => {
 		playerDirection: "down",
 	};
 	currentState = timeItem.state;
+	playerDirection = timeItem.playerDirection;
 	timeline = [timeItem];
 	timelineIndex = 0;
 };
@@ -354,8 +335,12 @@ Object.keys(window.gameMaps).forEach(mapKey => {
 	menuScreen.appendChild(element);
 });
 
-hideControls();
-renderFrame();
+const runAsync = async () => {
+	hideControls();
+	renderFrame();
+};
+
+runAsync();
 document.addEventListener('contextmenu', event => event.preventDefault());
 document.addEventListener("resize", renderFrame);
 
