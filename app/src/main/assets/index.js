@@ -280,7 +280,6 @@ Object.keys(window.gameMaps).forEach(mapKey => {
 	menuScreen.appendChild(element);
 });
 
-hideControls();
 renderFrame();
 document.addEventListener('contextmenu', event => event.preventDefault());
 document.addEventListener("resize", renderFrame);
