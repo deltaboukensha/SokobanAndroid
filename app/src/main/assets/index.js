@@ -268,7 +268,6 @@ const drawState = () => {
 };
 
 const renderFrame = () => {
-	console.log("renderFrame");
 	canvas.height = window.innerHeight;
 	canvas.width = window.innerWidth;
 	g.fillStyle = 'black';
@@ -417,7 +416,6 @@ const attachEvents = async () => {
 	});
 
 	document.getElementById("victoryScreen").addEventListener("touchend", () => {
-		console.log("victoryScreen");
 		victoryScreen.style.visibility = "hidden";
 		menuScreen.style.visibility = "visible";
 	});
