@@ -232,9 +232,7 @@ const hideControls = () => {
 };
 
 const pushState = (nextState) => {
-	console.log(timeline.length);
 	timeline = timeline.slice(0, timelineIndex + 1);
-	console.log(timeline.length);
 	timeline.push(nextState);
 	timelineIndex += 1;
 	currentState = timeline[timelineIndex];
