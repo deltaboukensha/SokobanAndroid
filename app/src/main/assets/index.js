@@ -9,6 +9,8 @@ let currentState;
 let timeline = [];
 let timelineIndex;
 const cellSize = 40;
+const playerSprite = new Image();
+playerSprite.src = "playerSprite.png";
 
 const readState = (dataString) => {
 	const gameState = {
@@ -211,6 +213,11 @@ const drawState = () => {
 		const p = currentState.player;
 		g.fillStyle = 'gold';
 		g.fillRect(p.x * cellSize, p.y * cellSize, cellSize, cellSize);
+
+		const sW = 120;
+		const sH = 140;
+		const scale = 0.5;
+		g.drawImage(playerSprite, 0, 0, sW, sH, p.x * cellSize, p.y * cellSize, sW * scale, sH * scale);
 	}
 };
 
