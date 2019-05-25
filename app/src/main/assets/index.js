@@ -16,6 +16,8 @@ const crateImage = new Image();
 crateImage.src = "crate32x32.png";
 const goalImage = new Image();
 goalImage.src = "goal32x32.png";
+const wallImage = new Image();
+wallImage.src = "wall32x32.png";
 
 const readState = (dataString) => {
 	const gameState = {
@@ -203,8 +205,9 @@ const drawState = () => {
 	}
 
 	currentState.walls.forEach(i => {
-		g.fillStyle = 'grey';
-		g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		// g.fillStyle = 'grey';
+		// g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		g.drawImage(wallImage, 0, 0, cellSize, cellSize, i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	currentState.goals.forEach(i => {
 		// g.fillStyle = 'green';
