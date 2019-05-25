@@ -327,7 +327,7 @@ const hideMenu = () => {
 	menuScreen.style.visibility = "hidden";
 };
 
-menuReturn.addEventListener("click", () => {
+menuReturn.addEventListener("touchend", () => {
 	hideMenu();
 });
 
@@ -335,7 +335,7 @@ Object.keys(window.gameMaps).forEach(mapKey => {
 	const map = window.gameMaps[mapKey];
 	const element = document.createElement("div");
 	element.className = 'item';
-	element.addEventListener("click", () => {
+	element.addEventListener("touchend", () => {
 		loadMap(map);
 		hideMenu();
 		showControls();
@@ -419,7 +419,6 @@ const attachEvents = async () => {
 		victoryScreen.style.visibility = "hidden";
 		menuScreen.style.visibility = "visible";
 	});
-
 };
 
 const runAsync = async () => {
