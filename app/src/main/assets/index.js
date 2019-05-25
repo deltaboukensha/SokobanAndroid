@@ -297,7 +297,7 @@ const changeTime = () => {
 const loadMap = (map) => {
 	const timeItem = {
 		state: readState(map.data),
-		playerDirection = "down",
+		playerDirection: "down",
 	};
 	currentState = timeItem.state;
 	timeline = [timeItem];
