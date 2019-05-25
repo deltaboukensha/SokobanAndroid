@@ -18,6 +18,8 @@ const playerLeftImage = new Image();
 playerLeftImage.src = "32x32/playerLeft.png";
 const playerUpImage = new Image();
 playerUpImage.src = "32x32/playerUp.png";
+const playerRightImage = new Image();
+playerRightImage.src = "32x32/playerRight.png";
 const crateImage = new Image();
 crateImage.src = "32x32/crate.png";
 const goalImage = new Image();
@@ -267,8 +269,8 @@ const drawState = () => {
 		else if (playerDirection == "up") {
 			g.drawImage(playerUpImage, 0, 0, cellSize, cellSize, p.x * cellSize, p.y * cellSize, cellSize, cellSize);
 		}
-		else {
-			g.drawImage(playerSprite, sx, sy, sw, sh, dx, dy, dw, dh);
+		else if (playerDirection == "right") {
+			g.drawImage(playerRightImage, 0, 0, cellSize, cellSize, p.x * cellSize, p.y * cellSize, cellSize, cellSize);
 		}
 	}
 };
