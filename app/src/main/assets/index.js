@@ -14,6 +14,8 @@ playerSprite.src = "playerSprite.png";
 let playerDirection;
 const playerDownImage = new Image();
 playerDownImage.src = "32x32/playerDown.png";
+const playerLeftImage = new Image();
+playerLeftImage.src = "32x32/playerLeft.png";
 const crateImage = new Image();
 crateImage.src = "32x32/crate.png";
 const goalImage = new Image();
@@ -256,6 +258,9 @@ const drawState = () => {
 
 		if (playerDirection == "down") {
 			g.drawImage(playerDownImage, 0, 0, cellSize, cellSize, p.x * cellSize, p.y * cellSize, cellSize, cellSize);
+		}
+		else if (playerDirection == "left") {
+			g.drawImage(playerLeftImage, 0, 0, cellSize, cellSize, p.x * cellSize, p.y * cellSize, cellSize, cellSize);
 		}
 		else {
 			g.drawImage(playerSprite, sx, sy, sw, sh, dx, dy, dw, dh);
