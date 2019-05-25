@@ -407,8 +407,8 @@ const attachEvents = async () => {
 
 	document.getElementById("buttonReset").addEventListener("touchend", () => {
 		console.log("buttonReset");
-		currentState = timeline[0];
-		renderFrame();
+		timelineIndex = 0;
+		changeTime();
 	});
 	document.getElementById("buttonMenu").addEventListener("touchend", () => {
 		console.log("buttonMenu");
