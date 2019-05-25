@@ -57,16 +57,7 @@ class FullscreenActivity : AppCompatActivity() {
         override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse {
             var filePath = request.url.path.replaceFirst("/", "")
             var dataStream = assets.open(filePath)
-
-            var mimeType = "";
-            if(filePath.endsWith(".js")){
-                mimeType = "text/html"
-            }
-            else if(filePath.endsWith(".js")){
-                mimeType = "application/javascript"
-            }
-
-            return WebResourceResponse(mimeType,"UTF-8", dataStream)
+            return WebResourceResponse(null,"UTF-8", dataStream)
         }
     }
 }
