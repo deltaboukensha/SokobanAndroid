@@ -11,7 +11,7 @@ let timelineIndex;
 const cellSize = 32;
 const playerSprite = new Image();
 playerSprite.src = "playerSprite.png";
-let playerDirection = 'down';
+let playerDirection;
 const crateImage = new Image();
 crateImage.src = "crate32x32.png";
 const goalImage = new Image();
@@ -295,8 +295,12 @@ const changeTime = () => {
 }
 
 const loadMap = (map) => {
-	currentState = readState(map.data);
-	timeline = [currentState];
+	const timeItem = {
+		state: readState(map.data),
+		playerDirection = "down",
+	};
+	currentState = timeItem.state;
+	timeline = [timeItem];
 	timelineIndex = 0;
 };
 
