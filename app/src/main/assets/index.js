@@ -18,8 +18,8 @@ const playerUpImage = new Image();
 playerUpImage.src = "32x32/playerUp.png";
 const playerRightImage = new Image();
 playerRightImage.src = "32x32/playerRight.png";
-const crateImage = new Image();
-crateImage.src = "32x32/crate.png";
+const boxImage = new Image();
+boxImage.src = "32x32/box.png";
 const goalImage = new Image();
 goalImage.src = "32x32/goal.png";
 const wallImage = new Image();
@@ -245,7 +245,7 @@ const drawState = () => {
 	currentState.boxes.forEach(i => {
 		// g.fillStyle = 'white';
 		// g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
-		g.drawImage(crateImage, 0, 0, cellSize, cellSize, i.x * cellSize, i.y * cellSize, cellSize, cellSize);
+		g.drawImage(boxImage, 0, 0, cellSize, cellSize, i.x * cellSize, i.y * cellSize, cellSize, cellSize);
 	});
 	{
 		const p = currentState.player;
