@@ -13,13 +13,13 @@ const playerSprite = new Image();
 playerSprite.src = "playerSprite.png";
 let playerDirection;
 const playerDownImage = new Image();
-playerDownImage.src = "playerDown32x32.png";
+playerDownImage.src = "32x32/playerDown.png";
 const crateImage = new Image();
-crateImage.src = "crate32x32.png";
+crateImage.src = "32x32/crate.png";
 const goalImage = new Image();
-goalImage.src = "goal32x32.png";
+goalImage.src = "32x32/goal.png";
 const wallImage = new Image();
-wallImage.src = "wall32x32.png";
+wallImage.src = "32x32/wall.png";
 
 const readState = (dataString) => {
 	const gameState = {
