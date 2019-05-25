@@ -8,6 +8,7 @@ const g = document.getElementById("gameCanvas").getContext("2d");
 let currentState;
 let timeline = [];
 let timelineIndex;
+const cellSize = 40;
 
 const readState = (dataString) => {
 	const gameState = {
@@ -189,8 +190,6 @@ const moveDown = (gameState) => {
 	return clone;
 };
 
-const cellSize = 40;
-
 const drawState = () => {
 	if (!currentState) {
 		return;
@@ -229,7 +228,7 @@ const showControls = () => {
 };
 
 const hideControls = () => {
-	gameControls.style.opacity = "0.1";
+	gameControls.style.opacity = "0.0";
 };
 
 const pushState = (nextState) => {
