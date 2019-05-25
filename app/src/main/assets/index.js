@@ -11,6 +11,7 @@ let timelineIndex;
 const cellSize = 40;
 const playerSprite = new Image();
 playerSprite.src = "playerSprite.png";
+let playerDirection = 'down';
 
 const readState = (dataString) => {
 	const gameState = {
@@ -211,13 +212,37 @@ const drawState = () => {
 	});
 	{
 		const p = currentState.player;
-		g.fillStyle = 'gold';
-		g.fillRect(p.x * cellSize, p.y * cellSize, cellSize, cellSize);
+		// g.fillStyle = 'gold';
+		// g.fillRect(p.x * cellSize, p.y * cellSize, cellSize, cellSize);
 
-		const sW = 120;
-		const sH = 140;
-		const scale = 0.5;
-		g.drawImage(playerSprite, 0, 0, sW, sH, p.x * cellSize, p.y * cellSize, sW * scale, sH * scale);
+		let sx = 0;
+		let sy = 0;
+		const sw = 120;
+		const sh = 130;
+
+		if (playerDirection == "down") {
+			sx = 0;
+			sy = sh * 0;
+		}
+		else if (playerDirection == "left") {
+			sx = 0;
+			sy = sh * 1;
+		}
+		else if (playerDirection == "up") {
+			sx = 0;
+			sy = sh * 2;
+		}
+		else if (playerDirection == "right") {
+			sx = 0;
+			sy = sh * 3;
+		}
+
+		const scale = 0.25;
+		const dx = p.x * cellSize + sw * scale / 4;
+		const dy = p.y * cellSize;
+		const dw = sw * scale;
+		const dh = sh * scale;
+		g.drawImage(playerSprite, sx, sy, sw, sh, dx, dy, dw, dh);
 	}
 };
 
@@ -238,21 +263,27 @@ const hideControls = () => {
 	gameControls.style.opacity = "0.0";
 };
 
-const pushState = (nextState) => {
-	if (!nextState) {
+const pushTime = (timeItem) => {
+	if (!timeItem.state) {
 		return;
 	}
 
 	timeline = timeline.slice(0, timelineIndex + 1);
-	timeline.push(nextState);
+	timeline.push(timeItem);
 	timelineIndex += 1;
-	currentState = timeline[timelineIndex];
+	changeTime();
+};
+
+const changeTime = () => {
+	const timeItem = timeline[timelineIndex];
+	currentState = timeItem.state;
+	playerDirection = timeItem.playerDirection;
 	renderFrame();
 
 	if (isWin(currentState)) {
 		victoryScreen.style.visibility = "visible";
 	}
-};
+}
 
 const loadMap = (map) => {
 	currentState = readState(map.data);
@@ -262,7 +293,6 @@ const loadMap = (map) => {
 
 const showMenu = () => {
 	menuScreen.style.visibility = "visible";
-	console.log({ timelineIndex });
 };
 
 const hideMenu = () => {
@@ -298,23 +328,36 @@ document.addEventListener("resize", renderFrame);
 
 document.getElementById("buttonLeft").addEventListener("touchend", () => {
 	console.log("buttonLeft");
-	pushState(moveLeft(currentState));
+	pushTime({
+		state: moveLeft(currentState),
+		playerDirection: "left",
+	});
 });
 document.getElementById("buttonRight").addEventListener("touchend", () => {
 	console.log("buttonRight");
-	pushState(moveRight(currentState));
+	pushTime({
+		state: moveRight(currentState),
+		playerDirection: "right",
+	});
 });
 document.getElementById("buttonUp").addEventListener("touchend", () => {
 	console.log("buttonUp");
-	pushState(moveUp(currentState));
+	pushTime({
+		state: moveUp(currentState),
+		playerDirection: "up",
+	});
 });
 document.getElementById("buttonDown").addEventListener("touchend", () => {
 	console.log("buttonDown");
-	pushState(moveDown(currentState));
+	pushTime({
+		state: moveDown(currentState),
+		playerDirection: "down",
+	});
 });
 
 document.getElementById("buttonMiddle").addEventListener("touchstart", () => {
 	showControls();
+	console.log({ timelineIndex, playerDirection });
 });
 document.getElementById("buttonMiddle").addEventListener("touchend", () => {
 	hideControls();
@@ -327,8 +370,7 @@ document.getElementById("buttonBackward").addEventListener("touchend", () => {
 	}
 
 	timelineIndex -= 1;
-	currentState = timeline[timelineIndex];
-	renderFrame();
+	changeTime();
 });
 document.getElementById("buttonForward").addEventListener("touchend", () => {
 	console.log("buttonForward");
@@ -337,8 +379,7 @@ document.getElementById("buttonForward").addEventListener("touchend", () => {
 	}
 
 	timelineIndex += 1;
-	currentState = timeline[timelineIndex];
-	renderFrame();
+	changeTime();
 });
 
 document.getElementById("buttonReset").addEventListener("touchend", () => {
