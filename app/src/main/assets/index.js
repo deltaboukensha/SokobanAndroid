@@ -41,9 +41,17 @@ const readState = (dataString) => {
 		walls: [],
 		boxes: [],
 		goals: [],
+		width: 0,
+		height: 0,
 	};
 	const lines = dataString.split("\n");
+	gameState.height = lines.length;
+
 	for (let y = 0; y < lines.length; y++) {
+		if (lines[y].length > gameState.width) {
+			gameState.width = lines[y].length;
+		}
+
 		for (let x = 0; x < lines[y].length; x++) {
 			const c = lines[y][x];
 
@@ -220,6 +228,10 @@ const drawState = () => {
 		return;
 	}
 
+	const tx = (canvas.clientWidth - currentState.width * cellSize) * 0.5;
+	const ty = (canvas.clientHeight - currentState.height * cellSize) * 0.5;
+	g.translate(tx, ty);
+
 	currentState.walls.forEach(i => {
 		// g.fillStyle = 'grey';
 		// g.fillRect(i.x * cellSize, i.y * cellSize, cellSize, cellSize);
@@ -375,7 +387,7 @@ document.getElementById("buttonDown").addEventListener("touchend", () => {
 
 document.getElementById("buttonMiddle").addEventListener("touchstart", () => {
 	showControls();
-	console.log({ timelineIndex, playerDirection });
+	console.log({ timelineIndex, playerDirection, currentState });
 });
 document.getElementById("buttonMiddle").addEventListener("touchend", () => {
 	hideControls();
