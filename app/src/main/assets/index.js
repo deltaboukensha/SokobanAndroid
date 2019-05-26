@@ -31,6 +31,22 @@ const maps = [
 		file: "map/1.txt"
 	},
 	{
+		name: "2",
+		file: "map/2.txt"
+	},
+	{
+		name: "3",
+		file: "map/3.txt"
+	},
+	{
+		name: "4",
+		file: "map/4.txt"
+	},
+	{
+		name: "5",
+		file: "map/5.txt"
+	},
+	{
 		name: "11",
 		file: "map/11.txt",
 	}
