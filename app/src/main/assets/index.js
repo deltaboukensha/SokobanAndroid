@@ -462,6 +462,11 @@ const attachEvents = async () => {
 		victoryScreen.style.visibility = "hidden";
 		menuScreen.style.visibility = "visible";
 	});
+
+	window.addEventListener("resize", () => {
+		console.log("resize");
+		renderFrame();
+	});
 };
 
 const runAsync = async () => {
