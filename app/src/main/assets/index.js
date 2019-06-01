@@ -28,27 +28,39 @@ wallImage.src = "32x32/wall.png";
 const maps = [
 	{
 		name: "1",
-		file: "map/92bd79ae0e262b5bc5a16a9467d39a1a.txt"
+		file: "map/1.txt"
 	},
 	{
 		name: "2",
-		file: "map/f2fe5b4097d76611c9cdf7d4e4fce7f5.txt"
+		file: "map/2.txt"
 	},
 	{
 		name: "3",
-		file: "map/8e07d18423d80bff982b3ab4b3708a13.txt"
+		file: "map/3.txt"
 	},
 	{
 		name: "4",
-		file: "map/eb93385f19af69c8cd87944d1c622c62.txt"
+		file: "map/4.txt"
 	},
 	{
 		name: "5",
-		file: "map/eb1c14cca228b2ff125e3c4c03c4d1da.txt"
+		file: "map/5.txt"
 	},
 	{
 		name: "6",
-		file: "map/659740a51db3fe56b86608acc30e176f.txt",
+		file: "map/6.txt",
+	},
+	{
+		name: "7",
+		file: "map/7.txt",
+	},
+	{
+		name: "8",
+		file: "map/8.txt",
+	},
+	{
+		name: "9",
+		file: "map/9.txt",
 	},
 	{
 		name: "promo1",
