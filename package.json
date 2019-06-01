@@ -1,0 +1,23 @@
+{
+	"name": "sokoban",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"serve": "serve ./app/src/main/assets",
+		"md5": "md5-file"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ColacX/SokobanAndroid.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ColacX/SokobanAndroid/issues"
+	},
+	"homepage": "https://github.com/ColacX/SokobanAndroid#readme",
+	"dependencies": {
+		"md5-file": "^4.0.0",
+		"server": "^1.0.18"
+	}
+}

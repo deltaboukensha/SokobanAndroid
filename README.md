@@ -1,3 +1,6 @@
+npm run serve
+npm run md5 .\app\src\main\assets\map\1.txt
+
 Admob
     App ID: ca-app-pub-6365666499020317~3326509254
     Ad Units
