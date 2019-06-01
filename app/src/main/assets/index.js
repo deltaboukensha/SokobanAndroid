@@ -365,7 +365,7 @@ menuReturn.addEventListener("touchend", () => {
 
 maps.forEach(map => {
 	const element = document.createElement("div");
-	element.className = 'item';
+	element.className = 'menuButton';
 	element.addEventListener("touchend", async () => {
 		await loadMap(map);
 		hideMenu();
