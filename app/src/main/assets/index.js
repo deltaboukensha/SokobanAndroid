@@ -63,7 +63,7 @@ const maps = [
 		file: "map/9.txt",
 	},
 	{
-		name: "promo1",
+		name: "Promo 1",
 		file: "map/promo1.txt",
 	}
 ];
