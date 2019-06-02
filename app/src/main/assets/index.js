@@ -59,7 +59,7 @@ const maps = [
 	{
 		name: "7",
 		file: "map/9e48a39d9e1448dfb65c06111bac6a1c.txt",
-		tested: false,
+		tested: true,
 	},
 	{
 		name: "8",
